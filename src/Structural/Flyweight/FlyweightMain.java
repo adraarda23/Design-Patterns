@@ -1,7 +1,4 @@
-package Structural;
-
-import Structural.Flyweight.CoffeeFactory;
-import Structural.Flyweight.ICoffee;
+package Structural.Flyweight;
 
 public class FlyweightMain {
     public static void main(String[] args) {
