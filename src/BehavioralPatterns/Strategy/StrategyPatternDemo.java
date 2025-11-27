@@ -1,4 +1,4 @@
-package Behaviourals.StrategyPattern;
+package BehavioralPatterns.Strategy;
 
 /**
  * STRATEGY PATTERN DEMO

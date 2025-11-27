@@ -1,4 +1,4 @@
-package Behaviourals.StrategyPattern;
+package BehavioralPatterns.Strategy;
 
 /**
  * CONCRETE STRATEGY #3 - Kripto Para Ödemesi
