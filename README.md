@@ -1,6 +1,6 @@
 # 📚 Design Patterns - Tasarım Desenleri Ansiklopedisi
 
-Bu proje, Gang of Four (GoF) tasarım desenlerinin Java ile uygulamalarını içeren kapsamlı bir koleksiyondur. **10 farklı tasarım deseni**, gerçek dünya senaryoları ile birlikte detaylı bir şekilde gösterilmektedir.
+Bu proje, Gang of Four (GoF) tasarım desenlerinin Java ile uygulamalarını içeren kapsamlı bir koleksiyondur. **22 farklı tasarım deseni**, gerçek dünya senaryoları ile birlikte detaylı bir şekilde gösterilmektedir.
 
 ## 📖 İçindekiler
 
@@ -14,10 +14,23 @@ Bu proje, Gang of Four (GoF) tasarım desenlerinin Java ile uygulamalarını iç
   - [5. Prototype Pattern](#5-prototype-pattern)
 - [Structural (Yapısal) Desenler](#structural-yapısal-desenler)
   - [6. Adapter Pattern](#6-adapter-pattern)
-  - [7. Composite Pattern](#7-composite-pattern)
-  - [8. Facade Pattern](#8-facade-pattern)
-  - [9. Proxy Pattern](#9-proxy-pattern)
-  - [10. Flyweight Pattern](#10-flyweight-pattern)
+  - [7. Bridge Pattern](#7-bridge-pattern)
+  - [8. Composite Pattern](#8-composite-pattern)
+  - [9. Decorator Pattern](#9-decorator-pattern)
+  - [10. Facade Pattern](#10-facade-pattern)
+  - [11. Flyweight Pattern](#11-flyweight-pattern)
+  - [12. Proxy Pattern](#12-proxy-pattern)
+- [Behavioral (Davranışsal) Desenler](#behavioral-davranışsal-desenler)
+  - [13. Chain of Responsibility Pattern](#13-chain-of-responsibility-pattern)
+  - [14. Command Pattern](#14-command-pattern)
+  - [15. Iterator Pattern](#15-iterator-pattern)
+  - [16. Mediator Pattern](#16-mediator-pattern)
+  - [17. Memento Pattern](#17-memento-pattern)
+  - [18. Observer Pattern](#18-observer-pattern)
+  - [19. State Pattern](#19-state-pattern)
+  - [20. Strategy Pattern](#20-strategy-pattern)
+  - [21. Template Method Pattern](#21-template-method-pattern)
+  - [22. Visitor Pattern](#22-visitor-pattern)
 - [Nasıl Çalıştırılır](#nasıl-çalıştırılır)
 - [Tasarım Desenleri Özet Tablosu](#tasarım-desenleri-özet-tablosu)
 
@@ -25,10 +38,11 @@ Bu proje, Gang of Four (GoF) tasarım desenlerinin Java ile uygulamalarını iç
 
 ## 🎯 Genel Bakış
 
-Bu proje **56 Java dosyası** içerir ve **2 ana kategori** altında **10 tasarım deseni** uygular:
+Bu proje **118 Java dosyası** içerir ve **3 ana kategori** altında **22 tasarım deseni** uygular:
 
 - **Creational Patterns (Yaratımsal)**: 5 desen - Nesne yaratma mekanizmalarıyla ilgilenir
-- **Structural Patterns (Yapısal)**: 5 desen - Nesnelerin kompozisyonu ve ilişkileriyle ilgilenir
+- **Structural Patterns (Yapısal)**: 7 desen - Nesnelerin kompozisyonu ve ilişkileriyle ilgilenir
+- **Behavioral Patterns (Davranışsal)**: 10 desen - Nesneler arası iletişim ve sorumluluk dağılımıyla ilgilenir
 
 Her desen, çalıştırılabilir örnek kodlar ve gerçek hayat senaryoları ile gösterilmiştir.
 
@@ -45,12 +59,19 @@ Design Patterns/src/
 │   ├── Prototype/              # 3 dosya - Araba ve Bilgisayar klonlama
 │   └── Singleton/              # 2 dosya - Tekil nesne örnekleri
 │
-└── Structural/
-    ├── Adapter/                # 5 dosya - Banka API adaptörü
-    ├── Composite/              # 5 dosya - Şirket organizasyon hiyerarşisi
-    ├── Facade/                 # 7 dosya - Ev sinema sistemi
-    ├── Flyweight/              # 6 dosya - Kahve dükkanı sipariş sistemi
-    └── Proxy/                  # 4 dosya - Resim yükleme sistemi
+├── Structural/
+│   ├── Adapter/                # 5 dosya - Banka API adaptörü
+│   ├── Composite/              # 5 dosya - Şirket organizasyon hiyerarşisi
+│   ├── Facade/                 # 7 dosya - Ev sinema sistemi
+│   ├── Flyweight/              # 6 dosya - Kahve dükkanı sipariş sistemi
+│   └── Proxy/                  # 4 dosya - Resim yükleme sistemi
+│
+└── BehavioralPatterns/
+    ├── Memento/                # 7 dosya - Classic, Incremental, Realistic
+    ├── Mediator/               # 9 dosya - ChatRoom, Form, AirTraffic
+    ├── Visitor/                # 9 dosya - Animals, ShoppingCart, DocumentExport
+    ├── ChainOfResponsibility/  # 9 dosya - SupportTicket, Authentication, Logging
+    └── State/                  # 4 dosya - Document, OrderProcess, TrafficLight
 ```
 
 ---
@@ -289,7 +310,53 @@ cart.checkout(paymentService);  // Arka planda BankAPI.transferMoney() çağrıl
 
 ---
 
-### 7. Composite Pattern
+### 7. Bridge Pattern
+
+**📂 Konum**: [`src/Structural/Bridge/`](src/Structural/Bridge/)
+
+**🎯 Amaç**: İki bağımsız hiyerarşiyi ayırır - Abstraction ve Implementation. Sınıf patlamasını (class explosion) önler.
+
+**📝 Dosyalar**:
+- [`Device.java`](src/Structural/Bridge/Device.java) - Implementation arayüzü
+- [`Tv.java`](src/Structural/Bridge/Tv.java) - Concrete implementation
+- [`Radio.java`](src/Structural/Bridge/Radio.java) - Concrete implementation
+- [`RemoteControl.java`](src/Structural/Bridge/RemoteControl.java) - Abstraction
+- [`BasicRemote.java`](src/Structural/Bridge/BasicRemote.java) - Refined abstraction
+- [`AdvancedRemote.java`](src/Structural/Bridge/AdvancedRemote.java) - Refined abstraction
+- [`Main.java`](src/Structural/Bridge/Main.java) - Demo uygulaması
+
+**💡 Problem**: 3 kumanda türü x 3 cihaz = 9 sınıf! Bridge ile: 3 + 3 = 6 sınıf
+
+**🔍 Bridge Yapısı**:
+```
+RemoteControl (Abstraction)
+    ↓ Bridge (device referansı)
+Device Interface (Implementation)
+```
+
+**🔍 Örnek Kullanım**:
+```java
+// Cihaz oluştur
+Device tv = new Tv();
+
+// Kumandayı cihaza bağla
+AdvancedRemote remote = new AdvancedRemote(tv);
+
+// Kullan
+remote.togglePower();
+remote.volumeUp();
+remote.mute();
+
+// AYNI kumanda, FARKLI cihaz
+Device radio = new Radio();
+AdvancedRemote remote2 = new AdvancedRemote(radio);
+```
+
+**⚙️ Çalıştırma**: `Main.java` (Bridge paketi içinde)
+
+---
+
+### 8. Composite Pattern
 
 **📂 Konum**: [`src/Structural/Composite/`](src/Structural/Composite/)
 
@@ -338,7 +405,58 @@ System.out.println("Toplam Maliyet: $" + cto.getSalary());
 
 ---
 
-### 8. Facade Pattern
+### 9. Decorator Pattern
+
+**📂 Konum**: [`src/Structural/Decorator/`](src/Structural/Decorator/)
+
+**🎯 Amaç**: Nesneye dinamik olarak yeni işlevsellik ekler. Alt sınıflama yerine sarmalama kullanır.
+
+**📝 Dosyalar**:
+- [`Coffee.java`](src/Structural/Decorator/Coffee.java) - Component arayüzü
+- [`SimpleCoffee.java`](src/Structural/Decorator/SimpleCoffee.java) - Concrete component
+- [`CoffeeDecorator.java`](src/Structural/Decorator/CoffeeDecorator.java) - Base decorator
+- [`MilkDecorator.java`](src/Structural/Decorator/MilkDecorator.java) - Concrete decorator
+- [`SugarDecorator.java`](src/Structural/Decorator/SugarDecorator.java) - Concrete decorator
+- [`WhippedCreamDecorator.java`](src/Structural/Decorator/WhippedCreamDecorator.java) - Concrete decorator
+- [`CoffeeBuilder.java`](src/Structural/Decorator/CoffeeBuilder.java) - Builder helper
+- [`Main.java`](src/Structural/Decorator/Main.java) - Demo uygulaması
+
+**💡 Gerçek Dünya Senaryosu**: Kahve dükkanı - basit kahveye süt, şeker, krema eklemek.
+
+**🔍 Decorator Zinciri**:
+```
+WhippedCreamDecorator
+    ↓ wraps
+SugarDecorator
+    ↓ wraps
+MilkDecorator
+    ↓ wraps
+SimpleCoffee (temel nesne)
+```
+
+**🔍 Örnek Kullanım**:
+```java
+// Basit kahve
+Coffee coffee = new SimpleCoffee();  // 10 TL
+
+// Süt ekle
+coffee = new MilkDecorator(coffee);  // 10 + 2 = 12 TL
+
+// Şeker ekle
+coffee = new SugarDecorator(coffee);  // 12 + 1 = 13 TL
+
+// Krema ekle
+coffee = new WhippedCreamDecorator(coffee);  // 13 + 3 = 16 TL
+
+System.out.println(coffee.getDescription());  // "Simple Coffee + Milk + Sugar + Whipped Cream"
+System.out.println(coffee.getCost());  // 16.0
+```
+
+**⚙️ Çalıştırma**: `Main.java` (Decorator paketi içinde)
+
+---
+
+### 10. Facade Pattern
 
 **📂 Konum**: [`src/Structural/Facade/`](src/Structural/Facade/)
 
@@ -377,7 +495,57 @@ homeTheater.endMovie();               // Film bittiğinde tek satır!
 
 ---
 
-### 9. Proxy Pattern
+### 11. Flyweight Pattern
+
+**📂 Konum**: [`src/Structural/Flyweight/`](src/Structural/Flyweight/)
+
+**🎯 Amaç**: Çok sayıda benzer nesneyi paylaşımlı kullanarak bellek kullanımını azaltır. Nesne havuzu (object pool) oluşturur.
+
+**📝 Dosyalar**:
+- [`ICoffee.java`](src/Structural/Flyweight/ICoffee.java) - Flyweight arayüzü
+- [`Espresso.java`](src/Structural/Flyweight/Espresso.java) - Somut flyweight
+- [`Latte.java`](src/Structural/Flyweight/Latte.java) - Somut flyweight
+- [`Cappuccino.java`](src/Structural/Flyweight/Cappuccino.java) - Somut flyweight
+- [`CoffeeFactory.java`](src/Structural/Flyweight/CoffeeFactory.java) - Flyweight factory (cache yönetimi)
+- [`FlyweightMain.java`](src/Structural/Flyweight/FlyweightMain.java) - Demo (kahve dükkanı)
+
+**💡 Gerçek Dünya Senaryosu**: Kahve dükkanı - 100 sipariş var ama sadece 3 kahve türü objesi yaratılır.
+
+**🔍 Anahtar Kavramlar**:
+- **Intrinsic State (İçsel Durum)**: Paylaşılan - kahve tipi özellikleri
+- **Extrinsic State (Dışsal Durum)**: Parametre olarak geçilen - masa numarası, sipariş ID
+
+**🔍 Bellek Verimliliği**:
+```
+10 sipariş alındı
+✅ Sadece 3 benzersiz kahve türü
+✅ Sadece 3 nesne yaratıldı (Espresso, Latte, Cappuccino)
+✅ Nesneler her sipariş için tekrar kullanıldı
+```
+
+**🔍 Örnek Kullanım**:
+```java
+// Sipariş 1: Espresso
+ICoffee order1 = CoffeeFactory.getCoffee("Espresso");  // YENİ nesne yaratır
+order1.serveCoffee(1, 101);  // Masa 1, Sipariş 101
+
+// Sipariş 2: Latte
+ICoffee order2 = CoffeeFactory.getCoffee("Latte");     // YENİ nesne yaratır
+order2.serveCoffee(2, 102);  // Masa 2, Sipariş 102
+
+// Sipariş 3: Espresso (AYNI TÜR!)
+ICoffee order3 = CoffeeFactory.getCoffee("Espresso");  // Mevcut nesneyi TEKRAR KULLANIR
+order3.serveCoffee(3, 103);  // Farklı masa ve sipariş numarası
+
+System.out.println("Toplam kahve türü yaratıldı: 3");  // 10 sipariş için sadece 3 nesne!
+System.out.println("Toplam sipariş: 10");
+```
+
+**⚙️ Çalıştırma**: `FlyweightMain.java`
+
+---
+
+### 12. Proxy Pattern
 
 **📂 Konum**: [`src/Structural/Proxy/`](src/Structural/Proxy/)
 
@@ -469,6 +637,193 @@ System.out.println("Toplam sipariş: 10");
 
 ---
 
+## 🎭 Behavioral (Davranışsal) Desenler
+
+Davranışsal desenler, nesneler arası iletişim ve sorumluluk dağılımıyla ilgilenir.
+
+### 13. Chain of Responsibility Pattern
+
+**📂 Konum**: [`src/BehavioralPatterns/Memento/`](src/BehavioralPatterns/Memento/)
+
+**🎯 Amaç**: Bir nesnenin önceki durumunu (snapshot) kaydetmek ve geri yüklemek için kullanılır. "Undo" işlevselliği sağlar.
+
+**📝 Örnekler**:
+- [`Classic/MementoPatternDemo.java`](src/BehavioralPatterns/Memento/Classic/MementoPatternDemo.java) - Klasik full snapshot yaklaşımı
+- [`Incremental/IncrementalMementoDemo.java`](src/BehavioralPatterns/Memento/Incremental/IncrementalMementoDemo.java) - Git-like delta compression
+- [`Realistic/RealisticMementoComparison.java`](src/BehavioralPatterns/Memento/Realistic/RealisticMementoComparison.java) - Performans karşılaştırması
+
+**💡 Kullanım Senaryoları**:
+- Text editör undo/redo
+- Oyun kayıt/yükleme
+- Veritabanı transaction rollback
+- Git commit sistemi
+
+**🔍 İki Yaklaşım**:
+
+**Classic (Full Snapshot):**
+```java
+TextMemento memento = editor.save();  // Tüm içeriği kaydet
+editor.restore(memento);               // Geri yükle
+```
+
+**Incremental (Delta Compression - Git-like):**
+```java
+IncrementalMemento memento = editor.saveIncremental();  // Sadece değişiklikleri kaydet
+editor.restoreIncremental(memento);                     // Delta'ları uygula
+// %90.9 daha az bellek kullanımı!
+```
+
+**⚙️ Çalıştırma**:
+```bash
+java -cp src BehavioralPatterns.Memento.Classic.MementoPatternDemo
+java -cp src BehavioralPatterns.Memento.Incremental.IncrementalMementoDemo
+java -cp src BehavioralPatterns.Memento.Realistic.RealisticMementoComparison
+```
+
+---
+
+### 12. Mediator Pattern
+
+**📂 Konum**: [`src/BehavioralPatterns/Mediator/`](src/BehavioralPatterns/Mediator/)
+
+**🎯 Amaç**: Nesneler arası doğrudan iletişimi azaltarak loose coupling sağlar. Tüm iletişim merkezi bir mediator üzerinden geçer.
+
+**📝 Örnekler**:
+- [`Classic/ChatRoomDemo.java`](src/BehavioralPatterns/Mediator/Classic/ChatRoomDemo.java) - Basit chat room
+- [`UI/FormMediatorDemo.java`](src/BehavioralPatterns/Mediator/UI/FormMediatorDemo.java) - Form element koordinasyonu
+- [`AirTraffic/AirTrafficControlDemo.java`](src/BehavioralPatterns/Mediator/AirTraffic/AirTrafficControlDemo.java) - Havaalanı trafik kontrolü
+
+**💡 Fayda**: n² bağlantı → n bağlantı (merkezi iletişim)
+
+**🔍 Örnek Kullanım**:
+```java
+ChatMediator chatRoom = new ChatRoom();
+User user1 = new User("Ali", chatRoom);
+User user2 = new User("Ayşe", chatRoom);
+
+user1.send("Merhaba!");  // Mediator üzerinden iletilir
+```
+
+**⚙️ Çalıştırma**:
+```bash
+java -cp src BehavioralPatterns.Mediator.Classic.ChatRoomDemo
+java -cp src BehavioralPatterns.Mediator.UI.FormMediatorDemo
+java -cp src BehavioralPatterns.Mediator.AirTraffic.AirTrafficControlDemo
+```
+
+---
+
+### 13. Visitor Pattern
+
+**📂 Konum**: [`src/BehavioralPatterns/Visitor/`](src/BehavioralPatterns/Visitor/)
+
+**🎯 Amaç**: Nesne yapısından operasyonları ayırır. Yeni operasyon eklemek için sınıfları değiştirmeden visitor ekle.
+
+**📝 Örnekler**:
+- [`Animals/AnimalsVisitorDemo.java`](src/BehavioralPatterns/Visitor/Animals/AnimalsVisitorDemo.java) - Hayvanları besleme/muayene
+- [`ShoppingCart/ShoppingCartVisitorDemo.java`](src/BehavioralPatterns/Visitor/ShoppingCart/ShoppingCartVisitorDemo.java) - E-ticaret vergi/indirim hesaplama
+- [`DocumentExport/DocumentExportVisitorDemo.java`](src/BehavioralPatterns/Visitor/DocumentExport/DocumentExportVisitorDemo.java) - Döküman export (HTML/PDF/TXT)
+
+**💡 Double Dispatch**: Element visitor'ı kabul eder, visitor elementi ziyaret eder.
+
+**🔍 Örnek Kullanım**:
+```java
+// Element
+class Dog implements Animal {
+    void accept(Visitor v) { v.visitDog(this); }
+}
+
+// Visitor
+class Feeder implements Visitor {
+    void visitDog(Dog d) { System.out.println("Köpek maması"); }
+}
+
+Dog dog = new Dog();
+dog.accept(new Feeder());  // "Köpek maması"
+```
+
+**⚙️ Çalıştırma**:
+```bash
+java -cp src BehavioralPatterns.Visitor.Animals.AnimalsVisitorDemo
+java -cp src BehavioralPatterns.Visitor.ShoppingCart.ShoppingCartVisitorDemo
+java -cp src BehavioralPatterns.Visitor.DocumentExport.DocumentExportVisitorDemo
+```
+
+---
+
+### 14. Chain of Responsibility Pattern
+
+**📂 Konum**: [`src/BehavioralPatterns/ChainOfResponsibility/`](src/BehavioralPatterns/ChainOfResponsibility/)
+
+**🎯 Amaç**: İstekleri zincir boyunca iletir. Uygun handler işleyene kadar devam eder.
+
+**📝 Örnekler**:
+- [`SupportTicket/SupportTicketDemo.java`](src/BehavioralPatterns/ChainOfResponsibility/SupportTicket/SupportTicketDemo.java) - Klasik chain (sadece biri işler)
+- [`Authentication/AuthenticationChainDemo.java`](src/BehavioralPatterns/ChainOfResponsibility/Authentication/AuthenticationChainDemo.java) - Filtering chain (herkes kontrol eder)
+- [`Logging/LoggingChainDemo.java`](src/BehavioralPatterns/ChainOfResponsibility/Logging/LoggingChainDemo.java) - Responsibility sharing (birden fazla işler)
+
+**💡 Üç Chain Tipi**:
+
+| Tip | Davranış | Zincir |
+|-----|----------|--------|
+| Klasik | Sadece biri işler | Durar |
+| Filtering | Herkes kontrol eder | Başarısız olunca durur |
+| Sharing | Birden fazla işler | Asla durmaz |
+
+**🔍 Örnek Kullanım**:
+```java
+Handler level1 = new Level1Support();
+Handler level2 = new Level2Support();
+level1.setNext(level2);
+
+level1.handleRequest(ticket);  // İşleyemeyen iletir
+```
+
+**⚙️ Çalıştırma**:
+```bash
+java -cp src BehavioralPatterns.ChainOfResponsibility.SupportTicket.SupportTicketDemo
+java -cp src BehavioralPatterns.ChainOfResponsibility.Authentication.AuthenticationChainDemo
+java -cp src BehavioralPatterns.ChainOfResponsibility.Logging.LoggingChainDemo
+```
+
+---
+
+### 15. State Pattern
+
+**📂 Konum**: [`src/BehavioralPatterns/State/`](src/BehavioralPatterns/State/)
+
+**🎯 Amaç**: Nesnenin iç durumuna göre davranışını değiştirir. Nesne sanki sınıfını değiştirmiş gibi görünür.
+
+**📝 Örnekler**:
+- [`Document/DocumentStateDemo.java`](src/BehavioralPatterns/State/Document/DocumentStateDemo.java) - Döküman yaşam döngüsü (Draft → Review → Published)
+- [`OrderProcess/OrderProcessDemo.java`](src/BehavioralPatterns/State/OrderProcess/OrderProcessDemo.java) - E-ticaret sipariş süreci
+- [`TrafficLight/TrafficLightDemo.java`](src/BehavioralPatterns/State/TrafficLight/TrafficLightDemo.java) - Trafik ışığı simülasyonu
+
+**💡 State vs Strategy**:
+
+| State | Strategy |
+|-------|----------|
+| Durum değiştirme | Algoritma değiştirme |
+| Kendini değiştirir | Dışarıdan set edilir |
+| İlişkili durumlar | İlişkisiz stratejiler |
+
+**🔍 Örnek Kullanım**:
+```java
+// State değişiklikleri otomatik
+Document doc = new Document("Makale");  // Draft state
+doc.submit();   // Review state'e geçer
+doc.publish();  // Published state'e geçer
+```
+
+**⚙️ Çalıştırma**:
+```bash
+java -cp src BehavioralPatterns.State.Document.DocumentStateDemo
+java -cp src BehavioralPatterns.State.OrderProcess.OrderProcessDemo
+java -cp src BehavioralPatterns.State.TrafficLight.TrafficLightDemo
+```
+
+---
+
 ## 🚀 Nasıl Çalıştırılır
 
 ### Tüm Örnekleri Derleme
@@ -479,6 +834,7 @@ javac -d out $(find src -name "*.java")
 # Veya klasör klasör derle
 javac -d out src/Creational/**/*.java
 javac -d out src/Structural/**/*.java
+javac -d out src/BehavioralPatterns/**/*.java
 ```
 
 ### Bireysel Desenleri Çalıştırma
@@ -519,6 +875,54 @@ java -cp out Structural.Proxy.Main
 java -cp out Structural.Flyweight.FlyweightMain
 ```
 
+**Behavioral Patterns:**
+```bash
+# Memento - Classic
+java -cp src BehavioralPatterns.Memento.Classic.MementoPatternDemo
+
+# Memento - Incremental (Git-like)
+java -cp src BehavioralPatterns.Memento.Incremental.IncrementalMementoDemo
+
+# Memento - Realistic Comparison
+java -cp src BehavioralPatterns.Memento.Realistic.RealisticMementoComparison
+
+# Mediator - Chat Room
+java -cp src BehavioralPatterns.Mediator.Classic.ChatRoomDemo
+
+# Mediator - Form UI
+java -cp src BehavioralPatterns.Mediator.UI.FormMediatorDemo
+
+# Mediator - Air Traffic Control
+java -cp src BehavioralPatterns.Mediator.AirTraffic.AirTrafficControlDemo
+
+# Visitor - Animals
+java -cp src BehavioralPatterns.Visitor.Animals.AnimalsVisitorDemo
+
+# Visitor - Shopping Cart
+java -cp src BehavioralPatterns.Visitor.ShoppingCart.ShoppingCartVisitorDemo
+
+# Visitor - Document Export
+java -cp src BehavioralPatterns.Visitor.DocumentExport.DocumentExportVisitorDemo
+
+# Chain of Responsibility - Support Ticket
+java -cp src BehavioralPatterns.ChainOfResponsibility.SupportTicket.SupportTicketDemo
+
+# Chain of Responsibility - Authentication
+java -cp src BehavioralPatterns.ChainOfResponsibility.Authentication.AuthenticationChainDemo
+
+# Chain of Responsibility - Logging
+java -cp src BehavioralPatterns.ChainOfResponsibility.Logging.LoggingChainDemo
+
+# State - Document
+java -cp src BehavioralPatterns.State.Document.DocumentStateDemo
+
+# State - Order Process
+java -cp src BehavioralPatterns.State.OrderProcess.OrderProcessDemo
+
+# State - Traffic Light
+java -cp src BehavioralPatterns.State.TrafficLight.TrafficLightDemo
+```
+
 ---
 
 ## 📊 Tasarım Desenleri Özet Tablosu
@@ -530,13 +934,25 @@ java -cp out Structural.Flyweight.FlyweightMain
 | 3 | **Abstract Factory** | Creational | İlişkili nesne aileleri yaratma | 9 | [`AbstractFactoryMain.java`](src/Creational/AbstractFactoryMain.java) |
 | 4 | **Builder** | Creational | Karmaşık nesneleri adım adım inşa etme | 5 | [`BuilderMain.java`](src/Creational/BuilderMain.java) |
 | 5 | **Prototype** | Creational | Mevcut nesneleri klonlama | 3 | [`PrototypeMain.java`](src/Creational/PrototypeMain.java) |
-| 6 | **Adapter** | Structural | Uyumsuz arayüzleri uyumlu hale getirme | 5 | [`AdapterDemo.java`](src/Structural/Adapter/example/AdapterDemo.java) |
-| 7 | **Composite** | Structural | Ağaç yapıları, parça-bütün hiyerarşisi | 5 | [`CompositeMain.java`](src/Structural/Composite/CompositeMain.java) |
-| 8 | **Facade** | Structural | Karmaşık sistemleri basitleştirme | 7 | [`Main.java`](src/Structural/Facade/Main.java) |
-| 9 | **Proxy** | Structural | Erişim kontrolü, lazy loading, caching | 4 | [`Main.java`](src/Structural/Proxy/Main.java) |
-| 10 | **Flyweight** | Structural | Bellek verimliliği için nesne paylaşımı | 6 | [`FlyweightMain.java`](src/Structural/Flyweight/FlyweightMain.java) |
+| 6 | **Adapter** | Structural | Uyumsuz arayüzleri uyumlu hale getirme | 5 | [`Adapter/`](src/Structural/Adapter/) |
+| 7 | **Bridge** | Structural | Abstraction ve Implementation ayırma | 7 | [`Bridge/`](src/Structural/Bridge/) |
+| 8 | **Composite** | Structural | Ağaç yapıları, parça-bütün hiyerarşisi | 5 | [`Composite/`](src/Structural/Composite/) |
+| 9 | **Decorator** | Structural | Dinamik işlevsellik ekleme | 8 | [`Decorator/`](src/Structural/Decorator/) |
+| 10 | **Facade** | Structural | Karmaşık sistemleri basitleştirme | 7 | [`Facade/`](src/Structural/Facade/) |
+| 11 | **Flyweight** | Structural | Bellek verimliliği, nesne paylaşımı | 6 | [`Flyweight/`](src/Structural/Flyweight/) |
+| 12 | **Proxy** | Structural | Erişim kontrolü, lazy loading, caching | 4 | [`Proxy/`](src/Structural/Proxy/) |
+| 13 | **Chain of Responsibility** | Behavioral | İstekleri zincir boyunca iletme | 9 | [`ChainOfResponsibility/`](src/BehavioralPatterns/ChainOfResponsibility/) |
+| 14 | **Command** | Behavioral | İşlemleri nesne olarak kapsülleme, undo/redo | 10 | [`Command/`](src/BehavioralPatterns/Command/) |
+| 15 | **Iterator** | Behavioral | Koleksiyona erişimi soyutlama | 7 | [`Iterator/`](src/BehavioralPatterns/Iterator/) |
+| 16 | **Mediator** | Behavioral | Nesneler arası merkezi iletişim | 9 | [`Mediator/`](src/BehavioralPatterns/Mediator/) |
+| 17 | **Memento** | Behavioral | Durum kaydetme ve geri yükleme | 7 | [`Memento/`](src/BehavioralPatterns/Memento/) |
+| 18 | **Observer** | Behavioral | Olay yayınlama ve abone olma | 8 | [`Observer/`](src/BehavioralPatterns/Observer/) |
+| 19 | **State** | Behavioral | Duruma göre davranış değişikliği | 4 | [`State/`](src/BehavioralPatterns/State/) |
+| 20 | **Strategy** | Behavioral | Algoritma değiştirilebilirlik | 6 | [`Strategy/`](src/BehavioralPatterns/Strategy/) |
+| 21 | **Template Method** | Behavioral | Algoritma iskeleti, adımlar alt sınıfta | 1 | [`TemplateMethod/`](src/BehavioralPatterns/TemplateMethod/) |
+| 22 | **Visitor** | Behavioral | Operasyonları veri yapısından ayırma | 9 | [`Visitor/`](src/BehavioralPatterns/Visitor/) |
 
-**Toplam**: **56 Java dosyası** | **10 tasarım deseni** | **2 kategori**
+**Toplam**: **118 Java dosyası** | **22 tasarım deseni** | **3 kategori**
 
 ---
 
@@ -546,12 +962,13 @@ java -cp out Structural.Flyweight.FlyweightMain
 Nesne yaratma mekanizmalarını kontrol eder ve optimize eder.
 - Singleton, Factory Method, Abstract Factory, Builder, Prototype
 
-### 🏛️ Structural (Yapısal) - 5 Desen
+### 🏛️ Structural (Yapısal) - 7 Desen
 Sınıfların ve nesnelerin nasıl birleştirileceğini tanımlar.
-- Adapter, Composite, Facade, Proxy, Flyweight
+- Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy
 
-### 🎭 Behavioral (Davranışsal) - 0 Desen
-*(Bu projede henüz uygulanmamış)*
+### 🎭 Behavioral (Davranışsal) - 10 Desen
+Nesneler arası iletişim ve sorumluluk dağılımını yönetir.
+- Chain of Responsibility, Command, Iterator, Mediator, Memento, Observer, State, Strategy, Template Method, Visitor
 
 ---
 
@@ -561,17 +978,22 @@ Sınıfların ve nesnelerin nasıl birleştirileceğini tanımlar.
 1. [Singleton](#1-singleton-pattern) - En basit desen
 2. [Facade](#8-facade-pattern) - Basit ve pratik
 3. [Prototype](#5-prototype-pattern) - Klonlama kavramı
+4. [State](#15-state-pattern) - Durum yönetimi
 
 **Orta Seviye:**
-4. [Factory Method](#2-factory-method-pattern) - Nesne yaratma soyutlaması
-5. [Adapter](#6-adapter-pattern) - Arayüz uyumlama
-6. [Composite](#7-composite-pattern) - Ağaç yapıları
+5. [Factory Method](#2-factory-method-pattern) - Nesne yaratma soyutlaması
+6. [Adapter](#6-adapter-pattern) - Arayüz uyumlama
+7. [Composite](#7-composite-pattern) - Ağaç yapıları
+8. [Chain of Responsibility](#14-chain-of-responsibility-pattern) - İstek zinciri
+9. [Memento](#11-memento-pattern) - Durum kaydetme
 
 **İleri Seviye:**
-7. [Abstract Factory](#3-abstract-factory-pattern) - Nesne aileleri
-8. [Builder](#4-builder-pattern) - Karmaşık nesne inşası
-9. [Proxy](#9-proxy-pattern) - Erişim kontrolü
-10. [Flyweight](#10-flyweight-pattern) - Bellek optimizasyonu
+10. [Abstract Factory](#3-abstract-factory-pattern) - Nesne aileleri
+11. [Builder](#4-builder-pattern) - Karmaşık nesne inşası
+12. [Proxy](#9-proxy-pattern) - Erişim kontrolü
+13. [Flyweight](#10-flyweight-pattern) - Bellek optimizasyonu
+14. [Mediator](#12-mediator-pattern) - Merkezi iletişim
+15. [Visitor](#13-visitor-pattern) - Double dispatch
 
 ---
 
@@ -591,10 +1013,10 @@ Sınıfların ve nesnelerin nasıl birleştirileceğini tanımlar.
 ## 💻 Teknik Detaylar
 
 - **Dil**: Java
-- **Toplam Dosya**: 56 Java dosyası
-- **Paket Yapısı**: `Creational.*` ve `Structural.*`
+- **Toplam Dosya**: 103 Java dosyası
+- **Paket Yapısı**: `Creational.*`, `Structural.*` ve `BehavioralPatterns.*`
 - **Derleme**: `javac` ile standart derleme
-- **Çalıştırma**: Her desenin kendi Main dosyası var
+- **Çalıştırma**: Her desenin birden fazla örneği mevcut
 
 ---
 
@@ -633,5 +1055,5 @@ Bu proje eğitim amaçlıdır ve özgürce kullanılabilir.
 
 ---
 
-**Son Güncelleme**: 2025-11-17
+**Son Güncelleme**: 2025-12-23
 **Proje Durumu**: Aktif Geliştirme 🚀
