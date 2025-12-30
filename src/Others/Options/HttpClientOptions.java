@@ -1,4 +1,4 @@
-package Others;
+package Others.Options;
 
 import java.time.Duration;
 import java.util.HashMap;
